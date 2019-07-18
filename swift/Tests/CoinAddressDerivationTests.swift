@@ -185,6 +185,9 @@ class CoinAddressDerivationTests: XCTestCase {
                     let expectedResult = "terra1rh402g98t7sly8trzqw5cyracntlep6qe3smug"
                     AssetCoinDerivation(coin, expectedResult, derivedAddress, address)
                 }
+                case .auxilium:
+                    let expectedResult = "0x8f348F300873Fd5DA36950B2aC75a26584584feE"
+                    AssetCoinDerivation(coin, expectedResult, derivedAddress, address)
             }
         }
     }

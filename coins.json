@@ -817,5 +817,18 @@
         "explorer": "https://terra.stake.id/?#/tx/",
         "url": "https://terra.money",
         "rpcNodeInfo": "https://github.com/terra-project/core"
+    },
+    {
+        "id": "auxilium",
+        "name": "Auxilium",
+        "symbol": "AUX",
+        "decimals": 18,
+        "blockchain": "Auxilium",
+        "derivationPath": "m/44'/344'/0'/0/0",
+        "curve": "secp256k1",
+        "publicKeyType": "secp256k1Extended",
+        "explorer": "https://explore.auxilium.global/blockchain/transaction/",
+        "url": "https://auxilium.global",
+        "rpcNodeInfo": "https://github.com/auxiliumglobal/go-ethereum"
     }
 ]

@@ -68,6 +68,7 @@ TEST(Coin, DeriveAddress) {
     EXPECT_EQ(TW::deriveAddress(TWCoinTypeAeternity, privateKey), "ak_2p5878zbFhxnrm7meL7TmqwtvBaqcBddyp5eGzZbovZ5FeVfcw");
     EXPECT_EQ(TW::deriveAddress(TWCoinTypeTerra, privateKey), "terra1hkfq3zahaqkkzx5mjnamwjsfpq2jk7z0ll9rwp");
     EXPECT_EQ(TW::deriveAddress(TWCoinTypeNebulas, privateKey), "n1XTciu9ZRYt3ni7SxNBmivk9Y6XpP6VrhT");
+    EXPECT_EQ(TW::deriveAddress(TWCoinTypeAuxilium, privateKey), "0x9d8A62f656a8d1615C1294fd71e9CFb3E4855A4F");
 }
 
 } // namespace TW

@@ -36,6 +36,7 @@ This list is generated from `src/coins.json`
 | 304     | IoTeX            | IOTX   | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/304.png" width="32" />     | <https://iotex.io>             |
 | 313     | Zilliqa          | ZIL    | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/313.png" width="32" />     | <https://zilliqa.com>          |
 | 330     | Terra            | LUNA   | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/330.png" width="32" />     | <https://terra.money>          |
+| 344     | Auxilium         | AUX    | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/344.png" width="32" />     | <https://auxilium.global>      |
 | 425     | Aion             | AION   | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/425.png" width="32" />     | <https://aion.network>         |
 | 457     | Aeternity        | AE     | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/457.png" width="32" />     | <https://aeternity.com>        |
 | 500     | Theta            | THETA  | <img src="https://raw.githubusercontent.com/TrustWallet/tokens/master/coins/500.png" width="32" />     | <https://www.thetatoken.org>   |
