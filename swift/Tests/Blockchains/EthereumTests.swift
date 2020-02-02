@@ -1,4 +1,4 @@
-// Copyright © 2017-2019 Trust Wallet.
+// Copyright © 2017-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -8,8 +8,18 @@ import XCTest
 import TrustWalletCore
 
 class EthereumTests: XCTestCase {
+
+    func testAddress() {
+        let anyAddress = AnyAddress(string: "0x7d8bf18c7ce84b3e175b339c4ca93aed1dd166f1", coin: .ethereum)
+        let ethAddress = EthereumAddress(string: "0x7d8bf18c7ce84b3e175b339c4ca93aed1dd166f1")
+
+        XCTAssertEqual(anyAddress?.description, ethAddress?.description)
+        XCTAssertEqual(anyAddress?.description, "0x7d8bf18C7cE84b3E175b339c4Ca93aEd1dD166F1")
+        XCTAssertEqual(anyAddress?.coin, .ethereum)
+    }
+
     func testSigner() {
-        let input = TW_Ethereum_Proto_SigningInput.with {
+        let input = EthereumSigningInput.with {
             $0.chainID = Data(hexString: "01")!
             $0.nonce = Data(hexString: "09")!
             $0.gasPrice = Data(hexString: "04a817c800")!

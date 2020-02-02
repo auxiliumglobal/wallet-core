@@ -1,4 +1,5 @@
 // Copyright © 2019 Mart Roosmaa.
+// Copyright © 2017-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -13,15 +14,21 @@
 namespace TW::Nano {
 /// Helper class that performs Ripple transaction signing.
 class Signer {
-  public:
+public:
     const PrivateKey privateKey;
     const PublicKey publicKey;
+    const Proto::SigningInput& input;
+    std::array<byte, 32> previous;
+    std::array<byte, 32> link;
     const std::array<byte, 32> blockHash;
 
     explicit Signer(const Proto::SigningInput& input);
 
-    /// Signs the blockHash
+    /// Signs the blockHash, returns signature bytes
     std::array<byte, 64> sign() const noexcept;
+
+    /// Builds signed transaction, incl. signature, and json format
+    Proto::SigningOutput build() const;
 };
 
 } // namespace TW::Nano

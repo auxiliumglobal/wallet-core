@@ -1,4 +1,4 @@
-// Copyright © 2017-2019 Trust Wallet.
+// Copyright © 2017-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -13,7 +13,7 @@
 #include "Bitcoin/TransactionSigner.h"
 
 #include <TrustWalletCore/TWBitcoinAddress.h>
-#include <TrustWalletCore/TWBitcoinCashAddress.h>
+#include <TrustWalletCore/TWAnyAddress.h>
 #include <TrustWalletCore/TWBitcoinScript.h>
 #include <TrustWalletCore/TWBitcoinTransactionSigner.h>
 #include <TrustWalletCore/TWHash.h>
@@ -23,9 +23,19 @@
 #include <gtest/gtest.h>
 
 using namespace TW;
+using namespace TW::Bitcoin;
 
 TEST(BitcoinCash, Address) {
-    EXPECT_TRUE(TWBitcoinCashAddressIsValidString(STRING("pqx578nanz2h2estzmkr53zqdg6qt8xyqvwhn6qeyc").get()));
+    EXPECT_TRUE(TWAnyAddressIsValidString(STRING("pqx578nanz2h2estzmkr53zqdg6qt8xyqvwhn6qeyc").get(), TWCoinTypeBitcoinCash));
+}
+
+TEST(BitcoinCash, ValidAddress) {
+    auto string = STRING("bitcoincash:qqa2qx0d8tegw32xk8u75ws055en4x3h2u0e6k46y4");
+    auto address = WRAP(TWAnyAddress, TWAnyAddressCreateWithString(string.get(), TWCoinTypeBitcoinCash));
+    ASSERT_NE(address.get(), nullptr);
+    
+    auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(string.get(), TWCoinTypeBitcoinCash));
+    ASSERT_FALSE(TWBitcoinScriptSize(script.get()) == 0);
 }
 
 TEST(BitcoinCash, LegacyToCashAddr) {
@@ -35,19 +45,23 @@ TEST(BitcoinCash, LegacyToCashAddr) {
     auto addressString = WRAPS(TWBitcoinAddressDescription(address));
     assertStringsEqual(addressString, "1PeUvjuxyf31aJKX6kCXuaqxhmG78ZUdL1");
 
-    auto cashAddress = TWBitcoinCashAddress();
-    TWBitcoinCashAddressInitWithPublicKey(&cashAddress, publicKey);
-    auto cashAddressString = WRAPS(TWBitcoinCashAddressDescription(cashAddress));
+    auto cashAddress = WRAP(TWAnyAddress, TWAnyAddressCreateWithPublicKey(publicKey, TWCoinTypeBitcoinCash));
+    auto cashAddressString = WRAPS(TWAnyAddressDescription(cashAddress.get()));
     assertStringsEqual(cashAddressString, "bitcoincash:qruxj7zq6yzpdx8dld0e9hfvt7u47zrw9gfr5hy0vh");
 }
 
 TEST(BitcoinCash, LockScript) {
-    auto address = TWBitcoinCashAddress();
-    TWBitcoinCashAddressInitWithString(&address, STRING("bitcoincash:qpk05r5kcd8uuzwqunn8rlx5xvuvzjqju5rch3tc0u").get());
+    auto address = WRAP(TWAnyAddress, TWAnyAddressCreateWithString(STRING("bitcoincash:qpk05r5kcd8uuzwqunn8rlx5xvuvzjqju5rch3tc0u").get(), TWCoinTypeBitcoinCash));
+    auto data = TWAnyAddressData(address.get());
+    auto rawData = TWDataCreateWithSize(0);
+    TWDataAppendByte(rawData, 0x00);
+    TWDataAppendData(rawData, data);
 
-    auto legacyAddress = TWBitcoinCashAddressLegacyAddress(address);
+    auto legacyAddress = TWBitcoinAddressCreateWithData(rawData);
     auto legacyString = WRAPS(TWBitcoinAddressDescription(legacyAddress));
     assertStringsEqual(legacyString, "1AwDXywmyhASpCCFWkqhySgZf8KiswFoGh");
+    TWDataDelete(data);
+    TWDataDelete(rawData);
 
     auto keyHash = WRAPD(TWDataCreateWithBytes(legacyAddress->impl.bytes.data() + 1, 20));
     auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildPayToPublicKeyHash(keyHash.get()));
@@ -77,13 +91,11 @@ TEST(BitcoinCash, DeriveFromXPub) {
     auto pubKey2 = TWHDWalletGetPublicKeyFromExtended(xpub.get(), STRING("m/44'/145'/0'/0/2").get());
     auto pubKey9 = TWHDWalletGetPublicKeyFromExtended(xpub.get(), STRING("m/44'/145'/0'/0/9").get());
 
-    TWBitcoinCashAddress address2;
-    TWBitcoinCashAddressInitWithPublicKey(&address2, pubKey2);
-    auto address2String = WRAPS(TWBitcoinCashAddressDescription(address2));
+    auto address2 = WRAP(TWAnyAddress, TWAnyAddressCreateWithPublicKey(pubKey2, TWCoinTypeBitcoinCash));
+    auto address2String = WRAPS(TWAnyAddressDescription(address2.get()));
 
-    TWBitcoinCashAddress address9;
-    TWBitcoinCashAddressInitWithPublicKey(&address9, pubKey9);
-    auto address9String = WRAPS(TWBitcoinCashAddressDescription(address9));
+    auto address9 = WRAP(TWAnyAddress, TWAnyAddressCreateWithPublicKey(pubKey9, TWCoinTypeBitcoinCash));
+    auto address9String = WRAPS(TWAnyAddressDescription(address9.get()));
 
     assertStringsEqual(address2String, "bitcoincash:qq4cm0hcc4trsj98v425f4ackdq7h92rsy6zzstrgy");
     assertStringsEqual(address9String, "bitcoincash:qqyqupaugd7mycyr87j899u02exc6t2tcg9frrqnve");
@@ -96,7 +108,7 @@ TEST(BitcoinCash, SignTransaction) {
     // Transaction on Bitcoin Cash Mainnet
     // https://blockchair.com/bitcoin-cash/transaction/96ee20002b34e468f9d3c5ee54f6a8ddaa61c118889c4f35395c2cd93ba5bbb4
 
-    auto input = Bitcoin::Proto::SigningInput();
+    auto input = Proto::SigningInput();
     input.set_hash_type(TWBitcoinSigHashTypeFork | TWBitcoinSigHashTypeAll);
     input.set_amount(amount);
     input.set_byte_fee(1);
@@ -116,7 +128,7 @@ TEST(BitcoinCash, SignTransaction) {
     input.add_private_key(TWDataBytes(utxoKey0.get()), TWDataSize(utxoKey0.get()));
 
     // Sign
-    auto signer = TW::Bitcoin::TransactionSigner<TW::Bitcoin::Transaction>(std::move(input));
+    auto signer = TransactionSigner<Transaction, TransactionBuilder>(std::move(input));
     auto result = signer.sign();
     auto signedTx = result.payload();
 
@@ -135,12 +147,4 @@ TEST(BitcoinCash, SignTransaction) {
             "5802000000000000" "1976a914769bdff96a02f9135a1d19b749db6a78fe07dc9088ac"
             "e510000000000000" "1976a9149e089b6889e032d46e3b915a3392edfd616fb1c488ac"
         "00000000");
-}
-
-TEST(BitcoinCash, ValidAddress) {
-    auto address = TWBitcoinCashAddress();
-    TWBitcoinCashAddressInitWithString(&address, STRING("bitcoincash:qqa2qx0d8tegw32xk8u75ws055en4x3h2u0e6k46y4").get());
-
-    auto script = WRAP(TWBitcoinScript, TWBitcoinScriptBuildForAddress(STRING("bitcoincash:qqa2qx0d8tegw32xk8u75ws055en4x3h2u0e6k46y4").get(), TWCoinTypeBitcoinCash));
-    ASSERT_FALSE(TWBitcoinScriptSize(script.get()) == 0);
 }

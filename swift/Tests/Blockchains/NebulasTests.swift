@@ -1,4 +1,4 @@
-// Copyright © 2019 Trust Wallet.
+// Copyright © 2019-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -12,7 +12,7 @@ class NebulasTests: XCTestCase {
     func testAddressFromPublicKey() {
         let privateKey = PrivateKey(data: Data(hexString: "d2fd0ec9f6268fc8d1f563e3e976436936708bdf0dc60c66f35890f5967a8d2b")!)!
         let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
-        let address = NebulasAddress(publicKey: publicKey)
+        let address = AnyAddress(publicKey: publicKey, coin: .nebulas)
 
         XCTAssertEqual(address.description, "n1V5bB2tbaM3FUiL4eRwpBLgEredS5C2wLY")
     }

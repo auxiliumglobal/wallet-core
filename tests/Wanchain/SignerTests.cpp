@@ -1,4 +1,4 @@
-// Copyright © 2017-2019 Trust Wallet.
+// Copyright © 2017-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -22,7 +22,7 @@ public:
 };
 
 TEST(Signer, Sign) {
-    auto address = Ethereum::Address("0x3535353535353535353535353535353535353535");
+    auto address = parse_hex("0x3535353535353535353535353535353535353535");
     auto transaction = Ethereum::Transaction(
         /* nonce: */ 9,
         /* gasPrice: */ 20000000000,

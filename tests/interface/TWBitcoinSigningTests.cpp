@@ -1,4 +1,4 @@
-// Copyright © 2017-2019 Trust Wallet.
+// Copyright © 2017-2020 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -15,7 +15,6 @@
 #include "proto/Bitcoin.pb.h"
 #include "TWTestUtilities.h"
 
-#include <TrustWalletCore/TWSegwitAddress.h>
 #include <TrustWalletCore/TWBitcoinScript.h>
 #include <TrustWalletCore/TWBitcoinTransactionSigner.h>
 #include <TrustWalletCore/TWHash.h>
@@ -116,7 +115,7 @@ TEST(BitcoinSigning, SignP2WPKH) {
     utxo0->mutable_out_point()->set_sequence(UINT32_MAX);
 
     // Sign
-    auto result = TW::Bitcoin::TransactionSigner<Transaction>(std::move(input)).sign();
+    auto result = TransactionSigner<Transaction, TransactionBuilder>(std::move(input)).sign();
 
     ASSERT_TRUE(result) << result.error();;
     auto signedTx = result.payload();
@@ -188,7 +187,7 @@ TEST(BitcoinSigning, SignP2WSH) {
     utxo0->mutable_out_point()->set_sequence(UINT32_MAX);
 
     // Sign
-    auto result = TW::Bitcoin::TransactionSigner<Transaction>(std::move(input)).sign();
+    auto result = TransactionSigner<Transaction, TransactionBuilder>(std::move(input)).sign();
 
     ASSERT_TRUE(result) << result.error();;
     auto signedTx = result.payload();
@@ -266,7 +265,7 @@ TEST(BitcoinSigning, SignP2SH_P2WPKH) {
     utxo0->mutable_out_point()->set_sequence(UINT32_MAX);
 
     // Sign
-    auto result = TW::Bitcoin::TransactionSigner<Transaction>(std::move(input)).sign();
+    auto result = TransactionSigner<Transaction, TransactionBuilder>(std::move(input)).sign();
 
     ASSERT_TRUE(result) << result.error();
     auto signedTx = result.payload();
@@ -361,7 +360,7 @@ TEST(BitcoinSigning, SignP2SH_P2WSH) {
     utxo->set_amount(987654321);
 
     // Sign
-    auto signer = TransactionSigner<Transaction>(std::move(input));
+    auto signer = TransactionSigner<Transaction, TransactionBuilder>(std::move(input));
     signer.transaction = unsignedTx;
     signer.plan.utxos = {*utxo};
     auto result = signer.sign();
