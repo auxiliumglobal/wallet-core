@@ -1316,7 +1316,11 @@
         "derivationPath": "m/44'/344'/0'/0/0",
         "curve": "secp256k1",
         "publicKeyType": "secp256k1Extended",
-        "explorer": "https://explore.auxilium.global/blockchain/transaction/",
+        "explorer": {
+            "url": "https://explore.auxilium.global/blockchain",
+            "txPath": "/transaction/",
+            "accountPath": "/address_transactions/"
+        },
         "info": {
             "url": "https://auxilium.global",
             "client": "https://github.com/auxiliumglobal/go-ethereum",

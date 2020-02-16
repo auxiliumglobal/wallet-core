@@ -139,6 +139,7 @@ TWData* _Nonnull TWAnyAddressData(struct TWAnyAddress* _Nonnull address) {
     case TWCoinTypeTheta:
     case TWCoinTypeWanchain:
     case TWCoinTypeAion:
+    case TWCoinTypeAuxilium:
         data = parse_hex(string);
         break;
 
