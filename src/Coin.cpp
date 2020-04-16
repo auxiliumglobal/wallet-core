@@ -13,13 +13,13 @@
 #include "Bitcoin/Address.h"
 #include "Bitcoin/CashAddress.h"
 #include "Bitcoin/SegwitAddress.h"
-#include "Bravo/Address.h"
-#include "Cardano/Address.h"
+#include "Cardano/AddressV3.h"
 #include "Cosmos/Address.h"
 #include "Decred/Address.h"
 #include "EOS/Address.h"
 #include "Ethereum/Address.h"
 #include "FIO/Address.h"
+#include "Filecoin/Address.h"
 #include "Groestlcoin/Address.h"
 #include "Harmony/Address.h"
 #include "Icon/Address.h"
@@ -43,6 +43,7 @@
 #include "Waves/Address.h"
 #include "Zcash/TAddress.h"
 #include "Zilliqa/Address.h"
+#include "NEO/Address.h"
 
 #include <TrustWalletCore/TWHRP.h>
 
@@ -82,9 +83,6 @@ bool TW::validateAddress(TWCoinType coin, const std::string& string) {
     case TWCoinTypeBitcoinCash:
         return Bitcoin::CashAddress::isValid(string) ||
                Bitcoin::Address::isValid(string, {{p2pkh}, {p2sh}});
-
-    case TWCoinTypeBravoCoin:
-        return Bravo::Address::isValid(string);
 
     case TWCoinTypeDash:
     case TWCoinTypeDogecoin:
@@ -186,7 +184,13 @@ bool TW::validateAddress(TWCoinType coin, const std::string& string) {
         return Polkadot::Address::isValid(string);
 
     case TWCoinTypeCardano:
-        return Cardano::Address::isValid(string);
+        return Cardano::AddressV3::isValid(string);
+
+    case TWCoinTypeNEO:
+        return NEO::Address::isValid(string);
+
+    case TWCoinTypeFilecoin:
+        return Filecoin::Address::isValid(string);
     }
 }
 
@@ -246,9 +250,6 @@ std::string TW::deriveAddress(TWCoinType coin, const PublicKey& publicKey) {
     case TWCoinTypeBitcoinCash:
         return Bitcoin::CashAddress(publicKey).string();
 
-    case TWCoinTypeBravoCoin:
-        return Bravo::Address(publicKey).string();
-
     case TWCoinTypeCosmos:
     case TWCoinTypeKava:
     case TWCoinTypeTerra:
@@ -287,7 +288,7 @@ std::string TW::deriveAddress(TWCoinType coin, const PublicKey& publicKey) {
         return Wanchain::Address(publicKey).string();
 
     case TWCoinTypeICON:
-        return Icon::Address(publicKey, TWIconAddressTypeAddress).string();
+        return Icon::Address(publicKey, Icon::TypeAddress).string();
 
     case TWCoinTypeIoTeX:
         return IoTeX::Address(publicKey).string();
@@ -355,7 +356,13 @@ std::string TW::deriveAddress(TWCoinType coin, const PublicKey& publicKey) {
         return Polkadot::Address(publicKey).string();
 
     case TWCoinTypeCardano:
-        return Cardano::Address(publicKey).string();
+        return Cardano::AddressV3(publicKey).string();
+
+    case TWCoinTypeNEO:
+        return NEO::Address(publicKey).string();
+
+    case TWCoinTypeFilecoin:
+        return Filecoin::Address(publicKey).string();
     }
 }
 

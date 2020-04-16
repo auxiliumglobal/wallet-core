@@ -17,6 +17,8 @@
 #include "../Polkadot/Address.h"
 #include "../Zcash/TAddress.h"
 #include "../Zilliqa/Address.h"
+#include "../Cardano/AddressV3.h"
+#include "../NEO/Address.h"
 #include "../Nano/Address.h"
 
 #include "../Coin.h"
@@ -33,7 +35,7 @@ bool TWAnyAddressEqual(struct TWAnyAddress* _Nonnull lhs, struct TWAnyAddress* _
     return TWStringEqual(lhs->address, rhs->address) && lhs->coin == rhs->coin;
 }
 
-bool TWAnyAddressIsValidString(TWString* _Nonnull string, enum TWCoinType coin) {
+bool TWAnyAddressIsValid(TWString* _Nonnull string, enum TWCoinType coin) {
     auto& address = *reinterpret_cast<const std::string*>(string);
     return TW::validateAddress(coin, address);
 }
@@ -169,6 +171,18 @@ TWData* _Nonnull TWAnyAddressData(struct TWAnyAddress* _Nonnull address) {
     case TWCoinTypePolkadot: {
         auto addr = Polkadot::Address(string);
         data = Data(addr.bytes.begin() + 1, addr.bytes.end());
+        break;
+    }
+
+    case TWCoinTypeCardano: {
+        auto addr = Cardano::AddressV3(string);
+        data = addr.data();
+        break;
+    }
+
+    case TWCoinTypeNEO: {
+        auto addr = NEO::Address(string);
+        data = Data(addr.bytes.begin(), addr.bytes.end());
         break;
     }
     default: break;

@@ -828,27 +828,6 @@
         }
     },
     {
-        "id": "bravocoin",
-        "name": "BravoCoin",
-        "symbol": "BRAVO",
-        "decimals": 3,
-        "blockchain": "EOS",
-        "derivationPath": "m/44'/282'/0'/0/0",
-        "curve": "secp256k1",
-        "publicKeyType": "secp256k1",
-        "explorer": {
-            "url": "https://explorer.bravocoin.com",
-            "txPath": "/txid/",
-            "accountPath": "/?"
-        },
-        "info": {
-            "url": "https://bravocoin.com",
-            "client": "https://github.com/bravo-project/bravo",
-            "clientPublic": "",
-            "clientDocs": "https://github.com/bravo-project/bravo"
-        }
-    },
-    {
         "id": "eos",
         "name": "EOS",
         "symbol": "EOS",
@@ -1134,7 +1113,7 @@
         "id": "solana",
         "name": "Solana",
         "symbol": "SOL",
-        "decimals": 13,
+        "decimals": 10,
         "blockchain": "Solana",
         "derivationPath": "m/44'/501'/0'",
         "curve": "ed25519",
@@ -1147,8 +1126,8 @@
         "info": {
             "url": "https://solana.com",
             "client": "https://github.com/solana-labs/solana",
-            "clientPublic": "http://api.mainnet.solana.com",
-            "clientDocs": "https://solana-labs.github.io/book/"
+            "clientPublic": "https://api.mainnet-beta.solana.com",
+            "clientDocs": "https://docs.solana.com"
         }
     },
     {
@@ -1290,21 +1269,68 @@
         "symbol": "ADA",
         "decimals": 6,
         "blockchain": "Cardano",
-        "derivationPath": "m/44'/1815'/0'/0/0",
+        "derivationPath": "m/1852'/1815'/0'/0/0",
         "curve": "ed25519Extended",
         "publicKeyType": "ed25519Extended",
+        "hrp": "addr",
         "explorer": {
-            "url": "https://cardanoexplorer.com",
+            "url": "https://shelleyexplorer.cardano.org",
             "txPath": "/tx/",
             "accountPath": "/address/",
             "sampleTx": "b7a6c5cadab0f64bdc89c77ee4a351463aba5c33f2cef6bbd6542a74a90a3af3",
-            "sampleAccount": "DdzFFzCqrhstpwKc8WMvPwwBb5oabcTW9zc5ykA37wJR4tYQucvsR9dXb2kEGNXkFJz2PtrpzfRiZkx8R1iNo8NYqdsukVmv7EAybFwC"
+            "sampleAccount": "addr1s3xuxwfetyfe7q9u3rfn6je9stlvcgmj8rezd87qjjegdtxm3y3f2mgtn87mrny9r77gm09h6ecslh3gmarrvrp9n4yzmdnecfxyu59jz29g8j"
         },
         "info": {
             "url": "https://www.cardano.org",
             "client": "https://github.com/input-output-hk/cardano-sl",
             "clientPublic": "",
             "clientDocs": "https://cardanodocs.com/introduction/"
+        }
+    },
+    {
+        "id": "neo",
+        "name": "NEO",
+        "symbol": "NEO",
+        "decimals": 8,
+        "blockchain": "NEO",
+        "derivationPath": "m/44'/888'/0'/0/0",
+        "curve": "nist256p1",
+        "publicKeyType": "nist256p1",
+        "explorer": {
+            "url": "https://neoscan.io",
+            "txPath": "/transaction/",
+            "accountPath": "/address/",
+            "sampleTx": "e0ddf7c81c732df26180aca0c36d5868ad009fdbbe6e7a56ebafc14bba41cd53",
+            "sampleAccount": "AcxuqWhTureEQGeJgbmtSWNAtssjMLU7pb"
+        },
+        "info": {
+            "url": "https://neo.org",
+            "client": "https://github.com/neo-project/neo",
+            "clientPublic": "http://seed1.ngd.network:10332",
+            "clientDocs": "https://neo.org/eco"
+        }
+    },
+    {
+        "id": "filecoin",
+        "name": "Filecoin",
+        "symbol": "FIL",
+        "decimals": 18,
+        "blockchain": "Filecoin",
+        "derivationPath": "m/44'/461'/0'/0/0",
+        "curve": "secp256k1",
+        "publicKeyType": "secp256k1Extended",
+        "explorer": {
+            "url": "https://filscan.io",
+            "txPath": "/#/message/detail?cid=",
+            "accountPath": "/#/address/detail?address=",
+            "sampleTx": "bafy2bzacecbm3ofxjjzcl2rg32ninphza34mm3ijr55zjsamwfqmz4ib63mqe",
+            "sampleAccount": "t1nbb73vhk5dtmnsgeaetbo76daepqjtrfoccn74i"
+        },
+        "info": {
+            "url": "https://filecoin.io/",
+            "client": "https://github.com/filecoin-project/lotus",
+            "clientPublic": "",
+            "clientDocs": "https://docs.lotu.sh"
         }
     },
     {
