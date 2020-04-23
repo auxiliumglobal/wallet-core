@@ -193,6 +193,9 @@ class CoinAddressDerivationTests: XCTestCase {
                 case .auxilium:
                     let expectedResult = "0x13a83314f0b5b7a10D77018DC02117Ee7ab376A2"
                     AssetCoinDerivation(coin, expectedResult, derivedAddress, address)
+                @unknown default:
+                    fatalError()
+                }
             }
         }
     }

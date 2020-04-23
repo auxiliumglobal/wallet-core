@@ -571,9 +571,9 @@
         "xpub": "xpub",
         "xprv": "xprv",
         "explorer": {
-            "url": "https://sochain.com",
-            "txPath": "/tx/ZEC/",
-            "accountPath": "/address/ZEC/"
+            "url": "https://blockchair.com/zcash",
+            "txPath": "/transaction/",
+            "accountPath": "/address/"
         },
         "info": {
             "url": "https://z.cash",
@@ -682,7 +682,7 @@
         "curve": "ed25519",
         "publicKeyType": "ed25519",
         "explorer": {
-            "url": "https://stellarscan.io",
+            "url": "https://blockchair.com/stellar",
             "txPath": "/transaction/",
             "accountPath": "/account/"
         },
@@ -858,7 +858,6 @@
         "curve": "ed25519Blake2bNano",
         "publicKeyType": "ed25519Blake2b",
         "url": "https://nano.org",
-        "rpcNodeInfo": "https://github.com/nanocurrency/nano-node",
         "explorer": {
             "url": "https://nanocrawler.cc",
             "txPath": "/explorer/block/",
@@ -1073,18 +1072,17 @@
         "derivationPath": "m/44'/235'/0'/0/0",
         "curve": "secp256k1",
         "publicKeyType": "secp256k1",
-        "url": "https://fio.foundation",
-        "rpcNodeInfo": "https://fio.foundation",
+        "url": "https://fioprotocol.io/",
         "explorer": {
-            "url": "https://fio.foundation",
-            "txPath": "/?",
-            "accountPath": "/?"
+            "url": "https://explorer.fioprotocol.io",
+            "txPath": "/transaction/",
+            "accountPath": "/account/"
         },
         "info": {
-            "url": "https://fio.foundation",
-            "client": "https://fio.foundation",
-            "clientPublic": "",
-            "clientDocs": "https://fio.foundation"
+            "url": "https://fioprotocol.io",
+            "client": "https://github.com/fioprotocol/fio",
+            "clientPublic": "https://mainnet.fioprotocol.io",
+            "clientDocs": "https://developers.fioprotocol.io"
         }
     },
     {
@@ -1113,7 +1111,7 @@
         "id": "solana",
         "name": "Solana",
         "symbol": "SOL",
-        "decimals": 10,
+        "decimals": 9,
         "blockchain": "Solana",
         "derivationPath": "m/44'/501'/0'",
         "curve": "ed25519",

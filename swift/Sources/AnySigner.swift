@@ -27,4 +27,34 @@ public final class AnySigner {
         }
         return TWDataNSData(TWAnySignerSign(inputData, TWCoinType(rawValue: coin.rawValue)))
     }
+
+    public static func supportsJSON(coin: CoinType) -> Bool {
+        return TWAnySignerSupportsJSON(TWCoinType(rawValue: coin.rawValue))
+    }
+
+    public static func signJSON(_ json: String, key: Data, coin: CoinType) -> String {
+        let jsonString = TWStringCreateWithNSString(json)
+        let keyData = TWDataCreateWithNSData(key)
+        defer {
+            TWDataDelete(keyData)
+        }
+        return TWStringNSString(TWAnySignerSignJSON(jsonString, keyData, TWCoinType(rawValue: coin.rawValue)))
+    }
+
+    public static func plan<TransactionPlan: Message>(input: SigningInput, coin: CoinType) -> TransactionPlan {
+        do {
+            let outputData = nativePlan(data: try input.serializedData(), coin: coin)
+            return try TransactionPlan(serializedData: outputData)
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    public static func nativePlan(data: Data, coin: CoinType) -> Data {
+        let inputData = TWDataCreateWithNSData(data)
+        defer {
+            TWDataDelete(inputData)
+        }
+        return TWDataNSData(TWAnySignerPlan(inputData, TWCoinType(rawValue: coin.rawValue)))
+    }
 }
