@@ -1,4 +1,5 @@
-[{
+[
+    {
         "id": "nebulas",
         "name": "Nebulas",
         "symbol": "NAS",
@@ -1329,6 +1330,28 @@
             "client": "https://github.com/filecoin-project/lotus",
             "clientPublic": "",
             "clientDocs": "https://docs.lotu.sh"
+        }
+    },
+    {
+        "id": "elrond",
+        "name": "Elrond",
+        "symbol": "ERD",
+        "decimals": 18,
+        "blockchain": "ElrondNetwork",
+        "derivationPath": "m/44'/508'/0'/0'/0'",
+        "curve": "ed25519",
+        "publicKeyType": "ed25519",
+        "hrp": "erd",
+        "explorer": {
+            "url": "https://explorer.elrond.com",
+            "txPath": "/transactions/",
+            "accountPath": "/address/"
+        },
+        "info": {
+            "url": "https://elrond.com/",
+            "client": "https://github.com/ElrondNetwork/elrond-go",
+            "clientPublic": "https://api.elrond.com",
+            "clientDocs": "https://docs.elrond.com"
         }
     },
     {

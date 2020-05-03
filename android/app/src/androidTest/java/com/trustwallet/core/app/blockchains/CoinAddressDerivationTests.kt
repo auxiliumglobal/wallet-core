@@ -83,6 +83,7 @@ class CoinAddressDerivationTests {
         CARDANO -> assertEquals("addr1snpa4z7ntyfszv7ckquprdw75w4qjqh0qmya9jtkpxxlzxghlqyvv7l0yjamh8fxraw06p3ua8sj2g2gv98v4849s43t9g2999kquuu5egnprk", address)
         NEO -> assertEquals("AT6w7PJvwPcSqHvtbNBY2aHPDv12eW5Uuf", address)
         FILECOIN -> assertEquals("f1zzykebxldfcakj5wdb5n3n7priul522fnmjzori", address)
+        ELROND -> assertEquals("erd1jfcy8aeru6vlx4fe6h3pc3vlpe2cnnur5zetxdhp879yagq7vqvs8na4f8", address)
         AUXILIUM -> assertEquals("0x13a83314f0b5b7a10D77018DC02117Ee7ab376A2", address)
     }
 }
